@@ -1,0 +1,12 @@
+FROM wordpress:php7.4-fpm
+
+ENV PHPREDIS_VERSION 5.3.7
+
+RUN mkdir -p /usr/src/php/ext/redis \
+    && curl -L https://github.com/phpredis/phpredis/archive/$PHPREDIS_VERSION.tar.gz | tar xvz -C /usr/src/php/ext/redis --strip 1 \
+    && echo 'redis' >> /usr/src/php-available-exts \
+    && docker-php-ext-install redis
+
+RUN docker-php-ext-install redis
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp && chmod 755 /usr/local/bin/wp
+RUN apt-get update && apt-get install -y --no-install-recommends bash less default-mysql-client msmtp ca-certificates && rm -rf /var/lib/apt/lists/*
