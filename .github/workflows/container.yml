@@ -18,6 +18,13 @@ jobs:
         file: Dockerfile.php8.2-fpm
         push: true
         tags: mikakoivisto/wordpress:php8.2-fpm
+    - name: Build and push to Docker hub wordpress:8.2-fpm-alpine
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: Dockerfile.php8.2-fpm-alpine
+        push: true
+        tags: mikakoivisto/wordpress:php8.2-fpm-alpine
     - name: Build and push to Docker hub wordpress:7.4
       uses: docker/build-push-action@v2
       with:
